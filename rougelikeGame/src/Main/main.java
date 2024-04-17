@@ -10,7 +10,7 @@ public class main {
         game.setResizable(false);
         game.setTitle("Solo Leveling");
         game.setLocationRelativeTo(null);
-
+        System.out.println("hellokent");
         gamePanel gamePanel = new gamePanel();
         game.add(gamePanel);
         game.pack();
