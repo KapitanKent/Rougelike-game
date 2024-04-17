@@ -8,7 +8,7 @@ public class main {
 
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.setResizable(false);
-        game.setTitle("Solo Leveling");
+        game.setTitle("Dungeon Crawl");
         game.setLocationRelativeTo(null);
 
         gamePanel gamePanel = new gamePanel();

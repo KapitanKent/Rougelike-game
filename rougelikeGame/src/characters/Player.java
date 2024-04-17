@@ -27,7 +27,7 @@ public class Player extends System {
         direction = "down";
     }
 
-    public void playerImg() {
+    public void playerImg() { //Character
         try {
 
             up1 = ImageIO.read(getClass().getResourceAsStream("/char/show.png"));
@@ -70,6 +70,7 @@ public class Player extends System {
                 image = up3;
                 break;
             case "right":
+                image = up3;
                 break;
         }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
