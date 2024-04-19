@@ -3,6 +3,7 @@
     import java.awt.*;
     import java.awt.image.BufferedImage;
     import java.io.IOException;
+    import java.util.Objects;
     import javax.imageio.ImageIO;
     import Main.gamePanel;
     import Main.keyHandler;
@@ -15,6 +16,7 @@
 
         public final int screenX;
         public final int screenY;
+        int counter2 = 0;
 
         public Player(gamePanel gp, keyHandler keys) {
             this.gp = gp;
@@ -33,7 +35,7 @@
             playerImg();
         }
 
-        public void playerMovement(){
+        public void playerMovement() {
             Worldx = gp.tileSize * 23;
             Worldy = gp.tileSize * 21;
             speed = 4;
@@ -43,9 +45,15 @@
         public void playerImg() { //Character
             try {
 
-                up1 = ImageIO.read(getClass().getResourceAsStream("/char/show.png"));
-                up2 = ImageIO.read(getClass().getResourceAsStream("/char/pngegg (1).png"));
-                up3 = ImageIO.read(getClass().getResourceAsStream("/char/pngegg.png"));
+                up1 = ImageIO.read(getClass().getResourceAsStream("/char/walkUp1.png"));
+                up2 = ImageIO.read(getClass().getResourceAsStream("/char/walkUp2.png"));
+                right1 = ImageIO.read(getClass().getResourceAsStream("/char/Char1walk.png"));
+                right2 = ImageIO.read(getClass().getResourceAsStream("/char/Char1Walk1.png"));
+                left1 = ImageIO.read(getClass().getResourceAsStream("/char/wa.png"));
+                left2 = ImageIO.read(getClass().getResourceAsStream("/char/walkleft2.png"));
+                down1 = ImageIO.read(getClass().getResourceAsStream("/char/walkDown1.png"));
+                down2 = ImageIO.read(getClass().getResourceAsStream("/char/walkDown2.png"));
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -53,22 +61,63 @@
         }
 
         public void update() {
-            if (keys.upward) {
-                direction = "up";
-                Worldy -= speed;
-            } else if (keys.downward) {
-                direction = "down";
-                Worldy += speed;
-            } else if (keys.forward) {
-                direction = "right";
-                Worldx += speed;
-            } else if (keys.backward) {
-                direction = "left";
-                Worldx -= speed;
+
+            if(keys.upward == true || keys.downward == true || keys.left == true || keys.right == true){
+
+                if (keys.upward == true) {
+                    direction = "up";
+
+                } else if (keys.downward == true) {
+                    direction = "down";
+
+                } else if (keys.left == true) {
+                    direction = "left";
+
+                } else if (keys.right == true) {
+                    direction = "right";
+                }
+
+                //Check Tile Collision
+                collisionOn = false;
+                gp.Checker.checkTile(this);
+
+                //If collision is false the player can move
+                if(collisionOn == false){
+                    switch (direction){
+                        case "up":
+                            Worldy -= speed;
+                            break;
+                        case "down":
+                            Worldy += speed;
+                            break;
+                        case "left":
+                            Worldx -= speed;
+                            break;
+                        case "right":
+                            Worldx += speed;
+                            break;
+                    }
+                }
+
+                //Character Animation
+                spriteCounter++;
+                if (spriteCounter > 10) {
+                    if(spriteNum == 1){
+                        spriteNum=2;
+                    }
+                    else if (spriteNum == 2) {
+                        spriteNum = 1;
+                    }
+                    spriteCounter = 0;
+                }
+
             }
-            collisionOn = false;
-            gp.collisionChecker.checkTile(this);
+
         }
+
+            /*collisionOn = false;
+            //gp.collisionChecker.checkTile(this);
+        }*/
 
         public void draw(Graphics2D g2) {
 
@@ -76,16 +125,36 @@
 
             switch (direction) {
                 case "up":
-                    image = up1;
-                    break;
-                case "down":
-                    image = up2;
-                    break;
-                case "left":
-                    image = up3;
+                    if(spriteNum == 1){
+                        image = up1;
+                    }
+                    if(spriteNum == 2) {
+                        image = up2;
+                    }
                     break;
                 case "right":
-                    image = up3;
+                    if(spriteNum == 1){
+                        image = right1;
+                    }
+                    if(spriteNum == 2){
+                        image = right2;
+                    }
+                    break;
+                case "left":
+                    if(spriteNum == 1){
+                        image = left1;
+                    }
+                    if(spriteNum == 2){
+                        image = left2;
+                    }
+                    break;
+                case "down":
+                    if(spriteNum == 1){
+                        image = down1;
+                    }
+                    if(spriteNum == 2){
+                        image = down2;
+                    }
                     break;
             }
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
