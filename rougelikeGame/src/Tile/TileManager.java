@@ -41,7 +41,7 @@ public class TileManager {
 
                 while (col< gp.maxWorldCol){
 
-                 String numbers[] = line.split(" ");
+                 String []numbers= line.split(" ");
 
                  int num = Integer.parseInt(numbers[col]);
 
@@ -62,7 +62,7 @@ public class TileManager {
 
         try {
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/geass.png"));
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/grass.png"));
 
 
             tile[1] = new Tile();
