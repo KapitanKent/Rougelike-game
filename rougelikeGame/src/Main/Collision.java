@@ -13,7 +13,10 @@
         }
 
         public void checkTile(System system){
-
+            if (gp.TileM == null || gp.TileM.tile == null) {
+                // Handle null TileManager or tile array
+                return;
+            }
             int systemLeftWorldX = system.Worldx + system.solidArea.x;
             int systemRightWorldX = system.Worldx + system.solidArea.x + system.solidArea.width;
             int systemTopWorldY = system.Worldy + system.solidArea.y;
@@ -61,4 +64,77 @@
                     break;
             }
         }
-    }
+
+            public int checkObject(System system, boolean player) {
+
+                int index = 999;
+
+                // Checking collision with the player or other systems
+                for (int i = 0; i < gp.obj.length; i++) {
+                    if (gp.obj[i] != null) {
+
+                    //get system solid area position
+                    system.solidArea.x = system.Worldx + system.solidArea.x;
+                    system.solidArea.y = system.Worldy + system.solidArea.y;
+
+                    //object solid area position
+                    gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
+                    gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+
+
+                    switch (system.direction) {
+                        case "up":
+                            system.solidArea.y -= system.speed;
+                            if (system.solidArea.intersects(gp.obj[i].solidArea)) {
+                                if(gp.obj[i].collision == true){
+                                    system.collisionOn = true;
+                                }
+                                if(player == true){
+                                    index = i;
+                                }
+                            }
+                            break;
+                        case "down":
+                            system.solidArea.y += system.speed;
+                            if (system.solidArea.intersects(gp.obj[i].solidArea)) {
+                                if(gp.obj[i].collision == true){
+                                    system.collisionOn = true;
+                                }
+                                if(player == true){
+                                    index = i;
+                                }
+                            }
+                            break;
+                        case "left":
+                            system.solidArea.x -= system.speed;
+                            if (system.solidArea.intersects(gp.obj[i].solidArea)) {
+                                if(gp.obj[i].collision == true){
+                                    system.collisionOn = true;
+                                }
+                                if(player == true){
+                                    index = i;
+                                }
+                            }
+                            break;
+                        case "right":
+                            system.solidArea.x += system.speed;
+                            if (system.solidArea.intersects(gp.obj[i].solidArea)) {
+                                if(gp.obj[i].collision == true){
+                                    system.collisionOn = true;
+                                }
+                                if(player == true){
+                                    index = i;
+                                }
+                                break;
+                            }
+                        }
+
+                        system.solidArea.x = system.solidAreaDefaultX;
+                        system.solidArea.y = system.solidAreaDefaultY;
+                        gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
+                        gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+
+                }
+                }return index;
+             }
+        }

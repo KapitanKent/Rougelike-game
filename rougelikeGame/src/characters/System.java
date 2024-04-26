@@ -2,6 +2,7 @@ package characters;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.PrintStream;
 
 public class System {
 
@@ -15,5 +16,6 @@ public class System {
     public int spriteNum = 1;
 
     public Rectangle solidArea;
+    public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
 }

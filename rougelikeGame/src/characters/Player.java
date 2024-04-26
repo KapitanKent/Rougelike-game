@@ -28,6 +28,8 @@
             solidArea = new Rectangle();
             solidArea.x = 8;
             solidArea.y = 16;
+            solidAreaDefaultX = solidArea.x;
+            solidAreaDefaultY = solidArea.y;
             solidArea.width = 32;
             solidArea.height = 32;
 
@@ -81,6 +83,13 @@
                 collisionOn = false;
                 gp.Checker.checkTile(this);
 
+                //Check object Collision
+                int objIndex = gp.Checker.checkObject(this, true);
+                pickObj(objIndex);
+
+                //check event
+               gp.event.checkEvent();
+               
                 //If collision is false the player can move
                 if(collisionOn == false){
                     switch (direction){
@@ -115,9 +124,12 @@
 
         }
 
-            /*collisionOn = false;
-            //gp.collisionChecker.checkTile(this);
-        }*/
+        public void pickObj(int i){
+            if(i !=999){
+
+            }
+
+        }
 
         public void draw(Graphics2D g2) {
 
