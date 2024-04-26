@@ -3,13 +3,11 @@
     import java.awt.*;
     import java.awt.image.BufferedImage;
     import java.io.IOException;
-    import java.util.Objects;
     import javax.imageio.ImageIO;
     import Main.gamePanel;
     import Main.keyHandler;
-    import org.w3c.dom.Entity;
 
-    public class Player extends System {
+    public class Player extends GameObject {
 
         gamePanel gp;
         keyHandler keys;
