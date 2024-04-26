@@ -7,6 +7,7 @@ public class keyHandler implements KeyListener {
 
     gamePanel gp;
     public boolean upward, left, right, downward;
+    public boolean isAttacking;
 
 
     public keyHandler (gamePanel gp){
@@ -42,6 +43,9 @@ public class keyHandler implements KeyListener {
                 gp.gameState = gp.playState;
             }
         }
+        if(key == KeyEvent.VK_J){
+            isAttacking = true;
+        }
     }
 
     @Override
@@ -59,6 +63,9 @@ public class keyHandler implements KeyListener {
         }
         if (key == KeyEvent.VK_D) {
             right = false;
+        }
+        if (key == KeyEvent.VK_J){
+            isAttacking = false;
         }
     }
 }
